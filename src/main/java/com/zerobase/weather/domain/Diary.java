@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +17,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 public class Diary {
 	@Id
@@ -27,4 +29,10 @@ public class Diary {
 	private double temperature;
 	private String text;
 	private LocalDate date;
+	
+	public void setDateWeather(DateWeather dateWeather) {
+		this.weather = dateWeather.getWeather();
+		this.icon = dateWeather.getIcon();
+		this.temperature = dateWeather.getTemperature();
+	}
 }
