@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -57,5 +58,12 @@ public class DiaryController {
 		@RequestBody String text
 	) {
 		diaryService.modifyDiary(date, text);
+	}
+	
+	@DeleteMapping("/diary")
+	void deleteDiary(
+		@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
+	) {
+		diaryService.deleteDiary(date);
 	}
 }
