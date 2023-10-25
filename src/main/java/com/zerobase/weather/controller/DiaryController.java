@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,7 +47,15 @@ public class DiaryController {
 			LocalDate date,
 		@RequestBody String text
 	) {
-		System.out.println("post controller date: " + date);
 		diaryService.createDiary(date, text);
+	}
+	
+	@PutMapping("/diary")
+	void modifyDiary(
+		@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+			LocalDate date,
+		@RequestBody String text
+	) {
+		diaryService.modifyDiary(date, text);
 	}
 }

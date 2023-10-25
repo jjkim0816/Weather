@@ -106,4 +106,10 @@ public class DiaryService {
 	public List<Diary> findDiaries(LocalDate startDate, LocalDate endDate) {
 		return diaryRepository.findAllByDateBetween(startDate, endDate);
 	}
+
+	public void modifyDiary(LocalDate date, String text) {
+		Diary nowDiary = diaryRepository.findFirstByDate(date);
+		nowDiary.setText(text);
+		diaryRepository.save(nowDiary);
+	}
 }
