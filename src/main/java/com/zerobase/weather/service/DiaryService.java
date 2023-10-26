@@ -1,5 +1,6 @@
 package com.zerobase.weather.service;
 
+import org.jboss.logging.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.zerobase.weather.WeatherApplication;
 import com.zerobase.weather.domain.DateWeather;
 import com.zerobase.weather.domain.Diary;
 import com.zerobase.weather.repository.DateWeatherRepository;
@@ -35,9 +37,12 @@ public class DiaryService {
 	
 	private final DiaryRepository diaryRepository;
 	private final DateWeatherRepository dateWeatherRepository;
+	
+	private static final Logger logger = Logger.getLogger(WeatherApplication.class);
 
 	@Transactional(isolation = Isolation.SERIALIZABLE)
 	public void createDiary(LocalDate date, String text) {
+		logger.info("started to create diary");
 		DateWeather dateWeather = findDateWeather(date);
 
 		Diary diary = new Diary();
@@ -46,6 +51,7 @@ public class DiaryService {
 		diary.setDate(date);
 		
 		diaryRepository.save(diary);
+		logger.info("end to create diary");
 	}
 	
 	private DateWeather findDateWeather(LocalDate date) {
